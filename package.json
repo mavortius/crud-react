@@ -20,6 +20,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test-coverage": "react-scripts test --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -38,6 +39,7 @@
     ]
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.17.0",
     "tslint": "^5.20.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^4.1.0"

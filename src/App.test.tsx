@@ -1,9 +1,30 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, cleanup, waitForElement } from '@testing-library/react';
+import Axios from "axios";
+import MockAdapter from "axios-mock-adapter";
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+afterEach(cleanup);
+
+describe("App", () => {
+  test("When page loads, posts are rendered", async () => {
+    const mock = new MockAdapter(Axios);
+    mock.onGet("https://jsonplaceholder.typicode.com/posts").reply(200, [
+      {
+        userId: 1,
+        id: 1,
+        title: "title test 1",
+        body: "body test 1"
+      },
+      {
+        userId: 1,
+        id: 2,
+        title: "title test 2",
+        body: "body test 2"
+      }
+    ]);
+    const { getByTestId } = render(<App/>);
+    const postsList: any = await waitForElement(() => getByTestId("posts"));
+    expect(postsList).toMatchSnapshot();
+  });
 });
